@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TrollApps Web</title>
+    <link rel="stylesheet" href="/css/styles-trollapps.css">
+  </head>
+  <body>
+
+    <div class="page-top">
+        <h1 class="page-header">Sources</h1>
+
+        <div class="container">
+            <button onclick="addLink()" class="add-button">+</button>
+        </div>
+    </div>
+    
+
+    <div id="links-container"></div>
+
+    <script src="/js/index.js"></script>
+    <script src="/js/default-sources.js"></script>
+
+    <script>
+        // Load default repos on page load
+        window.onload = function () {
+          defaultRepos.forEach(function (repoURL) {
+            loadRepo(repoURL);
+          });
+        };
+    </script>
+
+  </body>
+</html>
