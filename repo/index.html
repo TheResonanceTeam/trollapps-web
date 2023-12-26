@@ -27,23 +27,26 @@
         if (jsonUrl) {
             fetch(jsonUrl)
                 .then(response => response.json())
-                .then(data => displayApps(data.apps))
+                .then(data => displayApps(data.apps, jsonUrl))
                 .catch(error => console.error('Error fetching data:', error));
         }
     });
 
     // Function to display app information in the links-container
-    function displayApps(apps) {
+    function displayApps(apps, repoUrl) {
         const linksContainer = document.getElementById('links-container');
 
         // Loop through each app and create a link-item for it
         apps.forEach(app => {
             const linkItem = document.createElement('div');
             linkItem.className = 'link-item';
+            linkItem.setAttribute("app-name", app.name);
 
             linkItem.addEventListener('click', function (e) {
                 e.preventDefault();
                 this.classList.toggle('active');
+                var app = this.getAttribute('app-name');
+                window.location.href = `/repo/app-details/index.html?app=${encodeURIComponent(app)}&url=${encodeURIComponent(repoUrl)}`;
             });
 
             const linkItemContent = document.createElement('div');
@@ -72,7 +75,5 @@
         });
     }
 </script>
-
-<script src="/js/default-sources.js"></script>
 </body>
 </html>

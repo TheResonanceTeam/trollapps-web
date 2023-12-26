@@ -1,0 +1,27 @@
+.page-top-appdetails {
+    position: fixed;
+    width: 100%;
+    height: 200px;
+    z-index: 50000;
+    background-color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 900px;
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+  }
+
+  .page-header-appdetails {
+    position: fixed;
+    top: 96px; /* Adjust the top distance as needed */
+    left: 42px; /* Adjust the left distance as needed */
+  }
+
+  @media only screen and (max-width: 768px) {
+    .page-top-appdetails {
+        margin-bottom: 900px;
+        height: 320px;
+    }
+
+    .page-header-appdetails {
+        top: 32px;
+    }
+  }

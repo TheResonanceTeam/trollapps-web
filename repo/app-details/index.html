@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TrollApps Web</title>
+    <link rel="stylesheet" href="/css/styles-trollapps.css">
+    <link rel="stylesheet" href="/css/styles-appdetailsview.css">
+</head>
+<body>
+
+<div class="page-top-appdetails">
+    <h1 class="page-header-appdetails">App Details</h1>
+    <div class="container">
+        <!-- <button onclick="addLink()" class="add-button">+</button> -->
+    </div>
+</div>
+
+<div id="app-details-container"></div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the app and url queries from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const appName = urlParams.get("app");
+        const jsonUrl = urlParams.get("url");
+
+        // Check if both parameters are present
+        if (appName !== null && jsonUrl !== null) {
+            // Fetch the JSON data
+            fetch(jsonUrl)
+                .then(response => response.json())
+                .then(data => displayAppDetails(data, appName))
+                .catch(error => console.error('Error fetching data:', error));
+        }
+    });
+
+    // Function to display app details
+    function displayAppDetails(data, appName) {
+        const appDetailsContainer = document.getElementById('app-details-container');
+
+        // Find the app with the specified name
+        const app = data.apps.find(app => app.name === appName);
+
+        if (app) {
+            // Create elements to display app details
+            const detailsContainer = document.createElement('div');
+            detailsContainer.className = 'app-details';
+
+            const iconImage = document.createElement('img');
+            iconImage.src = app.iconURL;
+            iconImage.alt = `${app.name} Icon`;
+            iconImage.className = 'app-icon';
+            detailsContainer.appendChild(iconImage);
+
+            const infoContainer = document.createElement('div');
+            infoContainer.className = 'app-info';
+
+            const appNameElement = document.createElement('h2');
+            appNameElement.textContent = app.name;
+            appNameElement.style.fontWeight = 'bold';
+            appNameElement.style.fontSize = '20px';
+            infoContainer.appendChild(appNameElement);
+
+            const developerNameElement = document.createElement('p');
+            developerNameElement.textContent = `${app.developerName}`;
+            infoContainer.appendChild(developerNameElement);
+
+            detailsContainer.appendChild(infoContainer);
+
+            const actionContainer = document.createElement('div');
+            actionContainer.className = 'app-actions';
+
+            const getButton = document.createElement('button');
+            getButton.textContent = 'GET';
+            getButton.addEventListener('click', function () {
+                const selectedVersion = versionDropdown.value;
+                const selectedVersionData = app.versions.find(version => version.version === selectedVersion);
+                if (selectedVersionData) {
+                    window.location.href = 'apple-magnifier://install?url=' + selectedVersionData.downloadURL;
+                }
+            });
+            actionContainer.appendChild(getButton);
+
+            const versionDropdown = document.createElement('select');
+            app.versions.forEach(version => {
+                const option = document.createElement('option');
+                option.value = version.version;
+                option.textContent = `Version ${version.version}`;
+                versionDropdown.appendChild(option);
+            });
+            actionContainer.appendChild(versionDropdown);
+
+            detailsContainer.appendChild(actionContainer);
+
+            appDetailsContainer.appendChild(detailsContainer);
+
+            // Display screenshot URLs at the bottom
+            const screenshotsContainer = document.createElement('div');
+            screenshotsContainer.className = 'screenshots-container';
+
+            app.screenshotURLs.forEach(url => {
+                const screenshotImage = document.createElement('img');
+                screenshotImage.src = url;
+                screenshotImage.alt = `${app.name} Screenshot`;
+                screenshotsContainer.appendChild(screenshotImage);
+            });
+
+            appDetailsContainer.appendChild(screenshotsContainer);
+        } else {
+            // Display a message if the app is not found
+            const errorMessageElement = document.createElement('p');
+            errorMessageElement.textContent = 'App not found.';
+            appDetailsContainer.appendChild(errorMessageElement);
+        }
+    }
+</script>
+
+</body>
+</html>
