@@ -1,12 +1,19 @@
 function addLink() {
     var link = prompt("Enter a JSON link:");
     if (link) {
-      fetch(link)
-        .then(response => response.json())
-        .then(data => displayLink(data))
-        .catch(error => console.error('Error fetching data:', error));
+        // Check if the link starts with "https://"
+        if (!link.startsWith("https://")) {
+            // If not, add "https://" to the beginning of the link
+            link = "https://" + link;
+        }
+
+        fetch(link)
+            .then(response => response.json())
+            .then(data => displayLink(data, link))
+            .catch(error => console.error('Error fetching data:', error));
     }
 }
+
 
 function loadRepo(url) {
     fetch(url)
@@ -25,8 +32,11 @@ function displayLink(data, url) {
 
     linkItem.addEventListener('click', function (e) {
         e.preventDefault(); // Prevent default behavior for click event
-        alert(this.getAttribute("data-repo-link"));
         this.classList.toggle('active');
+        //alert(this.getAttribute("data-repo-link"));
+        var link = this.getAttribute('data-repo-link');
+        //history.replaceState({}, document.title, `/repo/?query=${encodeURIComponent(link)}`);
+        window.location.href = `/repo/index.html?url=${encodeURIComponent(link)}`;
     });
   
     // Adding the link-item-content for better organization

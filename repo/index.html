@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TrollApps Web</title>
+    <link rel="stylesheet" href="/css/styles-trollapps.css">
+</head>
+<body>
+
+<div class="page-top">
+    <h1 class="page-header">Apps</h1>
+    <div class="container">
+        <!-- <button onclick="addLink()" class="add-button">+</button> -->
+    </div>
+</div>
+
+<div id="links-container"></div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Fetch the JSON data from the URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const jsonUrl = urlParams.get("url");
+
+        if (jsonUrl) {
+            fetch(jsonUrl)
+                .then(response => response.json())
+                .then(data => displayApps(data.apps))
+                .catch(error => console.error('Error fetching data:', error));
+        }
+    });
+
+    // Function to display app information in the links-container
+    function displayApps(apps) {
+        const linksContainer = document.getElementById('links-container');
+
+        // Loop through each app and create a link-item for it
+        apps.forEach(app => {
+            const linkItem = document.createElement('div');
+            linkItem.className = 'link-item';
+
+            linkItem.addEventListener('click', function (e) {
+                e.preventDefault();
+                this.classList.toggle('active');
+            });
+
+            const linkItemContent = document.createElement('div');
+            linkItemContent.className = 'link-item-content';
+
+            const iconImage = document.createElement('img');
+            iconImage.src = app.iconURL;
+            iconImage.alt = `${app.name} Icon`;
+            linkItemContent.appendChild(iconImage);
+
+            const appName = document.createElement('span');
+            appName.textContent = app.name;
+            appName.style.fontWeight = 'bold';
+            appName.style.marginLeft = '10px';
+            appName.style.fontSize = '16px';
+            appName.style.verticalAlign = 'middle';
+            linkItemContent.appendChild(appName);
+
+            linkItem.appendChild(linkItemContent);
+
+            const linkItemButton = document.createElement('div');
+            linkItemButton.className = 'link-item-button';
+            linkItem.appendChild(linkItemButton);
+
+            linksContainer.appendChild(linkItem);
+        });
+    }
+</script>
+
+<script src="/js/default-sources.js"></script>
+</body>
+</html>
