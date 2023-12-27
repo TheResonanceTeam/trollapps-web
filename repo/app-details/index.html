@@ -102,8 +102,9 @@
             });
             actionContainer.appendChild(downloadIPAButton);
 
+            const versionDropdown = document.createElement('select');
             if(app.versions != null) {
-                const versionDropdown = document.createElement('select');
+                
             app.versions.forEach(version => {
                 const option = document.createElement('option');
                 option.value = version.version;
