@@ -16,8 +16,8 @@ body {
   border: none;
   cursor: pointer;
   color: #007BFF;
-  top: 45px;
-  right: 10px;
+  top: 25px;
+  right: 25px;
   font-size: 2em;
 }
 
@@ -34,8 +34,9 @@ body {
 }
 
 .link-item {
-  margin-bottom: 25px;
+  margin-bottom: 15px !important;
   border-bottom: 1px solid #ccc;
+  margin-top: -10px !important;
   padding: 20px;
   border-radius: 16px;
   position: relative;
@@ -94,7 +95,7 @@ body {
 
 .page-header {
   position: fixed;
-  top: 75px; /* Adjust the top distance as needed */
+  top: 55px; /* Adjust the top distance as needed */
   left: 42px; /* Adjust the left distance as needed */
 }
 
@@ -112,7 +113,7 @@ body {
 @media only screen and (max-width: 768px) {
   .page-top {
       margin-bottom: 1000px;
-      height: 175px;
+      height: 140px;
   }
 }
 
