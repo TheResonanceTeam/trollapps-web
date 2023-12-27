@@ -89,7 +89,7 @@ function displayLink(data, url) {
         e.preventDefault(); // Prevent default behavior for click event
         this.classList.toggle('active');
         var link = this.getAttribute('data-repo-link');
-        window.location.href = `/repo/index.html?url=${encodeURIComponent(link)}`;
+        window.location.href = `https://theresonanceteam.github.io/trollapps-web/repo/index.html?url=${encodeURIComponent(link)}`;
     });
 
     // Adding the link-item-content for better organization
