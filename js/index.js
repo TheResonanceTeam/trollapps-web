@@ -7,6 +7,20 @@ function addLink() {
             link = "https://" + link;
         }
 
+        // Check if the link is in the default repos
+        if (defaultRepos.includes(link)) {
+            alert("This repo already exists in the default repos. Skipping.");
+            return;
+        }
+        const savedLinks = getSavedLinksFromCookie() || new Set();
+
+        // Check if the link is already in the set
+        if (savedLinks.has(link)) {
+            alert("This repo is already added.");
+            return;
+        }
+
+
         fetch(link)
             .then(response => response.json())
             .then(data => {
@@ -19,6 +33,7 @@ function addLink() {
             .catch(error => console.error('Error fetching data:', error));
     }
 }
+
 
 function saveLinkAsCookie(link) {
     const savedLinks = getSavedLinksFromCookie() || new Set();
@@ -45,10 +60,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const savedLinks = getSavedLinksFromCookie();
     if (savedLinks) {
         savedLinks.forEach(link => {
-            fetch(link)
+            if(!defaultRepos.includes(link)) {
+                fetch(link)
                 .then(response => response.json())
                 .then(data => displayLink(data, link))
                 .catch(error => console.error('Error fetching data:', error));
+            }
         });
     }
 });
@@ -81,7 +98,15 @@ function displayLink(data, url) {
 
     // Displaying the iconURL on the left
     var iconImage = document.createElement("img");
-    iconImage.src = data.iconURL;
+    if(data.name == "UTM Repository") {
+        iconImage.src = "https://raw.githubusercontent.com/utmapp/UTM/main/Platform/Assets.xcassets/AppIcon.appiconset/Icon.png";
+    } else if (data.name == "Provenance EMU") {
+        iconImage.src = "https://provenance-emu.com/images/icons/icon.512x512.png";
+    } else if (data.name == "Flyinghead") {
+        iconImage.src = "https://github.com/flyinghead/flycast/raw/master/shell/linux/flycast.png";
+    } else {
+        iconImage.src = data.iconURL;
+    }
     iconImage.alt = "Source Icon";
     linkItemContent.appendChild(iconImage);
 

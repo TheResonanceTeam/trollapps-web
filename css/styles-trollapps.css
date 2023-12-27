@@ -1,9 +1,8 @@
 body {
   font-family: Arial, sans-serif;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  flex-direction: column; /* Stack flex containers vertically */
+  min-height: 100vh; /* Ensure the body takes at least the full height of the viewport */
   margin: 0;
 }
 
@@ -112,8 +111,8 @@ body {
 
 @media only screen and (max-width: 768px) {
   .page-top {
-      margin-bottom: 800px;
-      height: 320px;
+      margin-bottom: 1000px;
+      height: 175px;
   }
 }
 
@@ -125,7 +124,7 @@ body {
   min-width: 80%;
   border-radius: 16px;
   margin: auto;
-  margin-top: 125px;
+  margin-top: 64px;
   overflow: auto;
 }
 
@@ -174,4 +173,11 @@ body {
   height: 512px;
   border-radius: 24px;
   margin-right: 10px;
+}
+
+footer {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.4);
+  text-align: center;
+  padding: 10px 0;
 }

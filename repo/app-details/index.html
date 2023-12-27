@@ -10,12 +10,12 @@
 </head>
 <body>
 
-<div class="page-top-appdetails">
+<!--<div class="page-top-appdetails">
     <h1 class="page-header-appdetails">App Details</h1>
     <div class="container">
-        <!-- <button onclick="addLink()" class="add-button">+</button> -->
+         <button onclick="addLink()" class="add-button">+</button>
     </div>
-</div>
+</div>-->
 
 <div id="app-details-container"></div>
 
@@ -72,18 +72,38 @@
             const actionContainer = document.createElement('div');
             actionContainer.className = 'app-actions';
 
-            const getButton = document.createElement('button');
-            getButton.textContent = 'GET';
-            getButton.addEventListener('click', function () {
-                const selectedVersion = versionDropdown.value;
-                const selectedVersionData = app.versions.find(version => version.version === selectedVersion);
-                if (selectedVersionData) {
-                    window.location.href = 'apple-magnifier://install?url=' + selectedVersionData.downloadURL;
+            const installButton = document.createElement('button');
+            installButton.textContent = 'Install';
+            installButton.addEventListener('click', function () {
+                if(app.versions != null) {
+                    const selectedVersion = versionDropdown.value;
+                    const selectedVersionData = app.versions.find(version => version.version === selectedVersion);
+                    if (selectedVersionData) {
+                        window.location.href = 'apple-magnifier://install?url=' + selectedVersionData.downloadURL;
+                    }
+                } else {
+                    window.location.href = 'apple-magnifier://install?url=' + app.downloadURL;
                 }
             });
-            actionContainer.appendChild(getButton);
+            actionContainer.appendChild(installButton);
 
-            const versionDropdown = document.createElement('select');
+            const downloadIPAButton = document.createElement('button');
+            downloadIPAButton.textContent = 'Get IPA';
+            downloadIPAButton.addEventListener('click', function () {
+                if(app.versions != null) {
+                    const selectedVersion = versionDropdown.value;
+                    const selectedVersionData = app.versions.find(version => version.version === selectedVersion);
+                    if (selectedVersionData) {
+                        window.location.href = selectedVersionData.downloadURL;
+                    }
+                } else {
+                    window.location.href = app.downloadURL;
+                }
+            });
+            actionContainer.appendChild(downloadIPAButton);
+
+            if(app.versions != null) {
+                const versionDropdown = document.createElement('select');
             app.versions.forEach(version => {
                 const option = document.createElement('option');
                 option.value = version.version;
@@ -91,6 +111,8 @@
                 versionDropdown.appendChild(option);
             });
             actionContainer.appendChild(versionDropdown);
+            }
+            
 
             detailsContainer.appendChild(actionContainer);
 
@@ -117,5 +139,10 @@
     }
 </script>
 
+<footer>
+    <div class="container">
+      <p>© 2023 Resonance Team</p>
+    </div>
+</footer>
 </body>
 </html>
