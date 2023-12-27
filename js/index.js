@@ -108,6 +108,7 @@ function displayLink(data, url) {
         iconImage.src = data.iconURL;
     }
     iconImage.alt = "Source Icon";
+    iconImage.style.borderRadius = "50px";
     linkItemContent.appendChild(iconImage);
 
     // Displaying the name of the source
