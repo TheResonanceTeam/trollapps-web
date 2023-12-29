@@ -155,12 +155,17 @@ body {
     padding: 10px;
     font-size: 16px;
     margin-bottom: 10px;
+    background-color: #ededed;
+    border-radius: 50px;
   }
   
   .app-actions select {
     padding: 10px;
     font-size: 16px;
     margin-bottom: 10px;
+    background-color: white;
+    border: none;
+    border-radius: 50px;
   }
   
   .screenshots-container {
@@ -213,5 +218,19 @@ body {
   
     .link-item-button::before {
       opacity: 0.5;
+    }
+
+    .app-actions button {
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      background-color: #131313;
+      border-radius: 50px;
+      border: 1px solid #181818;
+    }
+
+    .app-actions select {
+      background-color: #000000;
+      border: none;
     }
   }
