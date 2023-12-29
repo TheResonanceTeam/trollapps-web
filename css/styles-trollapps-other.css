@@ -183,3 +183,35 @@ body {
     padding: 10px 0;
   }
   
+  @media (prefers-color-scheme: dark) {
+    footer {
+      background-color: #000;
+      color: rgba(255, 255, 255, 0.5);
+    }
+  
+    body {
+      background-color: #000;
+      color: #fff;
+    }
+  
+    .page-top {
+      background-color: rgba(0, 0, 0, 0.75);
+    }
+  
+    #links-container {
+      background-color: #131313;
+    }
+  
+    .link-item {
+      border-bottom: 1px solid #212121;
+    }
+  
+    .link-item:hover,
+    .link-item:active {
+      background-color: #262626;
+    }
+  
+    .link-item-button::before {
+      opacity: 0.5;
+    }
+  }

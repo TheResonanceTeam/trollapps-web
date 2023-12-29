@@ -25,3 +25,9 @@
         top: 32px;
     }
   }
+
+  @media (prefers-color-scheme: dark) {
+    .page-top-appdetails {
+      background-color: rgba(0, 0, 0, 0.75);
+    }
+  }
